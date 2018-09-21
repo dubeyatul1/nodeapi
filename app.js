@@ -7,7 +7,11 @@ var logger = require('morgan');
 
 //Database connection
 const Mongoose = require('mongoose');
-const url = 'mongodb://localhost:27017/usermanagement';
+// const url = 'mongodb://localhost:27017/usermanagement';
+const url = 'mongodb://admin:*#Admin_123@ds163822.mlab.com:63822/usermanagement';
+// const url = new MongoClientURI(
+//   "mongodb+srv://admin:admin@cluster0.mongodb.net/");
+
 const connect = Mongoose.connect(url,{
     useNewUrlParser:true
 });
