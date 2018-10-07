@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 
 //Database connection
@@ -17,11 +18,15 @@ connect.then(() => {
 }, (err) => { console.log(err); });
 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let assignmentRouter = require('./routes/assignment');
+let countriesRouter = require('./routes/countries');
+
 
 var app = express();
 
+app.use(cors()); 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -34,6 +39,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/assignments', assignmentRouter);
+app.use('/countries', countriesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

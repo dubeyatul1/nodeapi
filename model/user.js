@@ -26,7 +26,12 @@ let UserSchema = new Schema({
     address:{
         type:String,
         default:'',        
-    }
+    },
+    assignment:[{
+        type:Mongoose.Schema.Types.ObjectId,
+        ref:"Assignment",
+        default:""
+    }]
 },{
     timestamps:true
 });
