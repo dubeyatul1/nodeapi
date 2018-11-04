@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Users = require('../model/user');
-
+const Users = require('../model/user'); 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   Users.find({})

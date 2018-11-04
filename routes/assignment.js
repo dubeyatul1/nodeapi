@@ -3,7 +3,7 @@ var router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Assignments = require('../model/assignment');
-//const userId = '5ba477ebc0468144b401d598';
+//const userId = '5bba293b40000f56cc629f08';
 /* GET assignment listing. */
 router.get('/:sortBy/:orderBy/:skip/:limit', function(req, res, next) {
 	console.log(req.query.type);
@@ -16,7 +16,14 @@ router.get('/:sortBy/:orderBy/:skip/:limit', function(req, res, next) {
 	const limit = (req.params.limit > 0)?req.params.limit:10;
     sortObject[sortBy] = orderBy;
     Assignments.find(searchObj)
-      .populate('user')
+      .populate({
+        path: 'user',
+        model: 'User',
+      })
+      .populate({
+        path: 'country',
+        model: 'Country',
+      })
       .sort(sortObject) 
 	  .skip(Number(skip))
 	  .limit(Number(limit))
