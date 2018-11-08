@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Countries = require('../model/Country');
+const Countries = require('../model/country');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
