@@ -1,0 +1,83 @@
+const Mongoose = require('mongoose');
+const Schema = Mongoose.Schema;
+let AssignmentSchema = new Schema({
+    orderId:{
+        type:String,
+        required:true,         
+        unique:true            
+    },
+    topic:{
+        type:String,
+        default:''
+    },
+    deadLine:{
+        type:Date,
+        default:'',        
+    },
+    documentType:{
+        type:String,
+        default:''
+    },
+    subject:{
+        type:String,
+        default:''
+    },
+    referenceStyle:{
+        type:String,
+        default:''
+    },
+    paperLength:{
+        type:String,
+        default:''
+    },
+    academicLevel:{
+        type:String,
+        default:''  
+    },
+    status:{
+        type:String,
+        default:'Unclaim'       
+    },
+    document_1:{
+        type:String,
+        default:'' 
+    },
+    document_2:{
+        type:String,
+        default:'' 
+    },
+    document_3:{
+        type:String,
+        default:'' 
+    },
+    document_4:{
+        type:String,
+        default:'' 
+    },
+    message:{
+        type:String,
+        default:''
+    },
+    city:{
+        type:String,
+        default:'' 
+    },
+    country:{
+        type:String,
+        default:'' 
+    },
+    IP:{
+        type:String,
+        default:''
+    },
+    user:{
+        type:Mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        required:"User is required"
+    }
+},{
+    timestamps:true
+});
+
+let Assignments = Mongoose.model('Assignment', AssignmentSchema);
+module.exports = Assignments;

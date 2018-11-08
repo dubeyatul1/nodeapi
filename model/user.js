@@ -1,13 +1,9 @@
 const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
 let UserSchema = new Schema({
-    firstName:{
+    name:{
         type:String,
-        required:true,        
-    },
-    lastName:{
-        type:String,
-        default:'',        
+        required:true       
     },
     email:{
         type:String,
@@ -21,12 +17,41 @@ let UserSchema = new Schema({
     },
     phone:{
         type:String,
-        default:'',        
+        default:''     
+    },
+    userType:{
+        type:String,
+        default:'student'
+    },
+    country:{
+        type:String,
+        required:true
+    },
+    state:{
+        type:String,
+        default:""
+    },
+    city:{
+        type:String,
+        default:""
+    },
+    zip:{
+        type:String,
+        default:""
     },
     address:{
         type:String,
-        default:'',        
-    }
+        default:''        
+    },
+    profile:{
+        type: String,
+        default: ''
+    },
+    assignment:[{
+        type:Mongoose.Schema.Types.ObjectId,
+        ref:"Assignment",
+        default:""
+    }]
 },{
     timestamps:true
 });
