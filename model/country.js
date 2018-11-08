@@ -18,6 +18,5 @@ let CountrySchema = new Schema({
 },{
     timestamps:true
 });
-
 let Countries = Mongoose.model('Country',CountrySchema);
 module.exports = Countries;
