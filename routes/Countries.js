@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const Countries = require('../model/Country');
 
 /* GET users listing. */
