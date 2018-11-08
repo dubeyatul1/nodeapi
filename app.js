@@ -8,7 +8,8 @@ var logger = require('morgan');
 //Database connection
 const Mongoose = require('mongoose');
 // const url = 'mongodb://localhost:27017/usermanagement';
-const url = 'mongodb://admin:*#Admin_123@ds163822.mlab.com:63822/usermanagement';
+//const url = 'mongodb://admin:*#Admin_123@ds163822.mlab.com:63822/usermanagement';
+const connUrl = 'mongodb://admin:RUIM0Dj5pNB7nIMW@cluster0-shard-00-00-dncdy.mongodb.net:27017,cluster0-shard-00-01-dncdy.mongodb.net:27017,cluster0-shard-00-02-dncdy.mongodb.net:27017/usermanagement?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true';
 // const url = new MongoClientURI(
 //   "mongodb+srv://admin:admin@cluster0.mongodb.net/");
 
