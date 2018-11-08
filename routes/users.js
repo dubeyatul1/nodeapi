@@ -3,6 +3,9 @@ var router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Users = require('../model/user'); 
+const fs = require('fs');
+const path = require('path'),
+imageDir = '/uploads/';
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   Users.find({})
@@ -95,6 +98,22 @@ router.get('/user/:userId', (req, res, next) => {
       res.json(resp);
   }, (err) => next(err))
   .catch((err) => next(err));
+})
+.get('/profileImage', (req, res) => {
+  console.log(path.join(__dirname, 'uploads/'), 'HELLOE');
+  fs.readFile(imageDir, function (err, content) {
+      console.log('_1');
+      if (err) {
+          res.writeHead(400, {'Content-type':'text/html'})
+          console.log(err);
+          res.end("No such image");    
+      } else {
+          //specify the content type in the response will be an image
+          res.writeHead(200,{'Content-type':'image/jpg'});
+          console.log('hello');
+          res.end(content);
+      }
+  });
 });
 
 module.exports = router;

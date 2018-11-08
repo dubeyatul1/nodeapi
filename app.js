@@ -8,11 +8,11 @@ var cors = require('cors');
 
 //Database connection
 const Mongoose = require('mongoose');
-const url = 'mongodb://localhost:27017/usermanagement';
-const connect = Mongoose.connect(url,{
+// const url = 'mongodb://admin:admin@localhost:27017/usermanagement';
+const connUrl = 'mongodb://admin:RUIM0Dj5pNB7nIMW@cluster0-shard-00-00-dncdy.mongodb.net:27017,cluster0-shard-00-01-dncdy.mongodb.net:27017,cluster0-shard-00-02-dncdy.mongodb.net:27017/usermanagement?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true';
+const connect = Mongoose.connect(connUrl,{
     useNewUrlParser:true
-});
-
+}); 
 
 connect.then(() => {
   console.log('Connected correctly to server');
@@ -27,7 +27,6 @@ let uoloadRouter = require('./routes/upload');
 
 
 var app = express();
-
 app.use(cors()); 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
