@@ -4,35 +4,26 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-
-
 //Database connection
-const Mongoose = require('mongoose');
-// const url = 'mongodb://localhost:27017/usermanagement';
-//const url = 'mongodb://admin:*#Admin_123@ds163822.mlab.com:63822/usermanagement';
-// const url = 'mongodb://admin:admin@localhost:27017/usermanagement';
-const connUrl = 'mongodb://admin:RUIM0Dj5pNB7nIMW@cluster0-shard-00-00-dncdy.mongodb.net:27017,cluster0-shard-00-01-dncdy.mongodb.net:27017,cluster0-shard-00-02-dncdy.mongodb.net:27017/usermanagement?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true';
-const connect = Mongoose.connect(connUrl,{ 
-    useNewUrlParser:true
-}); 
-
-connect.then(() => {
-  console.log('Connected correctly to server');
-}, (err) => { console.log(err); });
+const connect = require('./db');
 
 
-let indexRouter = require('./routes/index');
+
+// let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let assignmentRouter = require('./routes/assignment');
 let countriesRouter = require('./routes/Countries');
 let uoloadRouter = require('./routes/upload');
-
+let uploadfileRouter = require('./routes/gridsupload.js');
 
 var app = express();
 app.use(cors()); 
+/** Seting up server to accept cross-origin browser requests */
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", true);
   next();
 });
 // view engine setup
@@ -44,13 +35,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img',express.static(path.join(__dirname, 'uploads')));
 
-app.use('/', indexRouter);
+app.use('/', usersRouter);
 app.use('/users', usersRouter);
 app.use('/assignments', assignmentRouter);
 app.use('/countries', countriesRouter);
 app.use('/upload', uoloadRouter);
-
+app.use('/uploadfile', uploadfileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
