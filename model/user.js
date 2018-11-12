@@ -12,7 +12,7 @@ let UserSchema = new Schema({
     },
     password:{
         type:String,
-        required:true,
+        required:false,
         min:3        
     },
     phone:{
@@ -25,7 +25,7 @@ let UserSchema = new Schema({
     },
     country:{
         type:String,
-        required:true
+        default:""
     },
     state:{
         type:String,
@@ -46,12 +46,7 @@ let UserSchema = new Schema({
     profile:{
         type: String,
         default: ''
-    },
-    assignment:[{
-        type:Mongoose.Schema.Types.ObjectId,
-        ref:"Assignment",
-        default:""
-    }]
+    }
 },{
     timestamps:true
 });

@@ -17,22 +17,33 @@ router.get('/', function(req, res, next) {
     .catch((err) => next(err));  
 })
 .post('/signup', (req, res, next) =>{
-  bcrypt.hash(req.body.password, 10, function(err, hash){
-    if(err) {
-      return res.status(500).json({
-         error: err
-      });
-   } else {
-     req.body.password = hash,
-     Users.create(req.body)
-       .then((user) =>{
-         res.statusCode = 200;
-         res.setHeader('Content-type', 'application/json');
-         res.json(user);         
-       },(err) => next(err))
-       .catch((err) => next(err));
-     }
-  })
+  // console.log(req.body);
+  Users.findOne({ email: req.body.email },  (err, oldUser) =>{
+       // Make sure user doesn't already exist
+    if (oldUser){
+        console.log('test', oldUser);
+        res.statusCode = 200;
+        res.setHeader('Content-type', 'application/json');
+        res.json(oldUser);         
+    }else{
+      bcrypt.hash(req.body.password, 10, function(err, hash){
+        if(err) {
+          return res.status(500).json({
+             error: err
+          });
+       } else {
+         req.body.password = hash,
+         Users.create(req.body)
+           .then((user) =>{
+             res.statusCode = 200;
+             res.setHeader('Content-type', 'application/json');
+             res.json(user);         
+           },(err) => next(err))
+           .catch((err) => next(err));
+         }
+      }) 
+    }    
+})
 })
 .post('/login', function(req, res){
   Users.findOne({email: req.body.email})
@@ -90,7 +101,7 @@ router.get('/user/:userId', (req, res, next) => {
   }, (err) => next(err))
   .catch((err) => next(err));
 })
-.delete('/user/:userId',(req, res, next) =>{
+.delete('/user/:userId',(req, res, next) => {
   Users.findByIdAndRemove(req.params.userId)
     .then((resp) => {
       res.statusCode = 200;

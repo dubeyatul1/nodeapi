@@ -11,7 +11,7 @@ let AssignmentSchema = new Schema({
         default:''
     },
     deadLine:{
-        type:Date,
+        type:String,
         default:'',        
     },
     documentType:{
@@ -33,6 +33,10 @@ let AssignmentSchema = new Schema({
     academicLevel:{
         type:String,
         default:''  
+    },
+    academicOption:{
+        type:String,
+        default:''
     },
     status:{
         type:String,
@@ -58,19 +62,7 @@ let AssignmentSchema = new Schema({
         type:String,
         default:''
     },
-    city:{
-        type:String,
-        default:'' 
-    },
-    country:{
-        type:String,
-        default:'' 
-    },
-    IP:{
-        type:String,
-        default:''
-    },
-    user:{
+	user:{
         type:Mongoose.Schema.Types.ObjectId,
         ref:"User",
         required:"User is required"

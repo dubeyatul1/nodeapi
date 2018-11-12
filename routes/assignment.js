@@ -35,7 +35,7 @@ router.get('/:sortBy/:orderBy/:skip/:limit', function(req, res, next) {
       .catch((err) => next(err));  
   })
   .get('/all', function(req, res, next) {
-	console.log(req.query.type);
+	// console.log(req.query.type);
 	const searchObj = {};
 	const searchQuery = (req.query.type && req.query.type === 'new')? searchObj['status'] = 'Unclaim' : searchObj;
     Assignments.find(searchObj)
@@ -49,6 +49,7 @@ router.get('/:sortBy/:orderBy/:skip/:limit', function(req, res, next) {
   })
   .post('/add', (req, res, next) =>{    
     //req.body.user = userId; 
+    // console.log(req.body);
     req.body.orderId = 'BWE-'+ Math.floor(Math.random() * 9999); 
     Assignments.create(req.body)
     .then((assignment) =>{
