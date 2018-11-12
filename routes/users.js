@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
   Users.findOne({ email: req.body.email },  (err, oldUser) =>{
        // Make sure user doesn't already exist
     if (oldUser){
-        console.log('test', oldUser);
+        // console.log('test', oldUser);
         res.statusCode = 200;
         res.setHeader('Content-type', 'application/json');
         res.json(oldUser);         
@@ -111,17 +111,17 @@ router.get('/user/:userId', (req, res, next) => {
   .catch((err) => next(err));
 })
 .get('/profileImage', (req, res) => {
-  console.log(path.join(__dirname, 'uploads/'), 'HELLOE');
+  // console.log(path.join(__dirname, 'uploads/'), 'HELLOE');
   fs.readFile(imageDir, function (err, content) {
-      console.log('_1');
+      // console.log('_1');
       if (err) {
           res.writeHead(400, {'Content-type':'text/html'})
-          console.log(err);
+          // console.log(err);
           res.end("No such image");    
       } else {
           //specify the content type in the response will be an image
           res.writeHead(200,{'Content-type':'image/jpg'});
-          console.log('hello');
+          // console.log('hello');
           res.end(content);
       }
   });

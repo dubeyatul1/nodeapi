@@ -6,7 +6,7 @@ const Assignments = require('../model/assignment');
 //const userId = '5bba293b40000f56cc629f08';
 /* GET assignment listing. */
 router.get('/:sortBy/:orderBy/:skip/:limit', function(req, res, next) {
-	console.log(req.query.type);
+	// console.log(req.query.type);
 	const searchObj = {};
 	const searchQuery = (req.query.type && req.query.type === 'new')? searchObj['status'] = 'Unclaim' : searchObj;
     const sortObject = {};

@@ -42,6 +42,12 @@ router.post("/", upload.single('file'),  (req, res) => {
    res.json({file: req.file});
 });
 
+
+router.post("/muliupload", upload.array("uploads", 12),  (req, res) => {
+    console.log('hello',req);
+    res.json({files: req.files});
+ });
+
 router.get("/files", (req, res) => {
     gfs.files
     .find()
