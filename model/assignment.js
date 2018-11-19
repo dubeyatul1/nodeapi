@@ -1,5 +1,7 @@
 const Mongoose = require('mongoose');
-const Schema = Mongoose.Schema;
+const Schema = Mongoose.Schema,
+    ObjectId = Schema.ObjectId;
+    
 let AssignmentSchema = new Schema({
     orderId:{
         type:String,
@@ -43,8 +45,8 @@ let AssignmentSchema = new Schema({
         default:'Unclaim'       
     },
     document_1:{
-        type:String,
-        default:'' 
+        type:ObjectId,
+        ref:"uploads.files",
     },
     document_2:{
         type:String,

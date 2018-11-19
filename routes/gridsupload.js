@@ -10,11 +10,12 @@ Grid.mongo = mongoose.mongo;
 const mongoUri = require('../mongoUri'); 
 const conn = mongoose.createConnection(mongoUri);
 let gfs;
-
+var CHUNKS_COLL = 'uploads.chunks';
+var FILES_COLL = 'uploads.files';
 conn.once('open', ()=>{
     gfs = Grid(conn.db,mongoose.mongo);
-    gfs.collection('uploads');
-})
+    gfs.collection('uploads');    
+});
 /** Setting up storage using multer-gridfs-storage */
 const storage = new GridFsStorage({
   url:mongoUri,
@@ -44,7 +45,6 @@ router.post("/", upload.single('file'),  (req, res) => {
 
 
 router.post("/muliupload", upload.array("uploads", 12),  (req, res) => {
-    console.log('hello',req);
     res.json({files: req.files});
  });
 
@@ -102,6 +102,42 @@ router.get("/image/:filename", (req, res) => {
     });
 });
 
+
+router.get('/fileById/:id',function(req,res){
+    console.log(req.params.id);
+    var file_id = req.params.id;
+
+  gfs.files.find({_id: file_id}, (err, file) => {
+    console.log(file);
+    if(err) {
+        res.status(404).end();
+    } else if(!file){
+        res.status(404).end();
+    } else {
+        var readstream = gfs.createReadStream({
+          _id: file._id
+        });
+       
+        res.set('Content-Type', file.contentType);
+
+        readstream.on('error', function (err) {
+            res.send(500, err);
+        });
+        readstream.on('open', function () {
+            readstream.pipe(res);
+        });
+    }
+});
+      
+    //   if (file.length > 0) {
+    //       var mime = 'image/jpeg';
+    //       res.set('Content-Type', mime);
+    //       var read_stream = gfs.createReadStream({filename: req.params.id});
+    //       read_stream.pipe(res);
+    //   } else {
+    //       res.json('File Not Found');
+    //   }
+  }); 
 
 router.delete("/file/:filename", (req, res)=>{
     gfs.remove({filename: req.params.filename, root:'uploads'}, (err, gridStore) =>{
